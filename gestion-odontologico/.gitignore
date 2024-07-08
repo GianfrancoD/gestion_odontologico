@@ -25,3 +25,5 @@ dist-ssr
 
 # Ignore files and Archive
 backend/.env
+/vite.config.js
+/.env

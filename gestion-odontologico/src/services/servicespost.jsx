@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 // eslint-disable-next-line no-undef
 const API_URL = process.env.VITE_API_URL;
 
-export const ServicesAll = (port, id, data, method) => {
-  let url = `${API_URL}/${port}`;
+export const ServicesAll = (endpoint, id, data, method) => {
+  let url = `${API_URL}/${endpoint}`;
   if (id) {
     url += `/${id}`;
   }
