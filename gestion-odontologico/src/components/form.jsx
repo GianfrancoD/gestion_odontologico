@@ -17,6 +17,12 @@ export const Formulario = () => {
     setFormulario({ nombre: "", apellido: "" });
     setAlluser([...alluser, formulario]);
 
+    /**
+     * Endpoint: va la direccion del endpoint del a base de datos
+     * Id: es numerico se refiere a parametros usando metodos PUT o DELETE
+     * Data: es la informacion del formulario que tengas guardado en algun array
+     * Method: es la solicitud HTTP [GET, POST, PUT, DELETE]
+     */
     ServicesAll("create", undefined, formulario, "post")
       .then((response) => {
         console.log(response.data);
