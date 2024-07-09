@@ -22,5 +22,5 @@ ServicesAll.prototype = {
   method: PropTypes.oneOf(["get", "post", "put", "delete"]).isRequired,
   id: PropTypes.number,
   data: PropTypes.string,
-  port: PropTypes.string.isRequired,
+  endpoint: PropTypes.string.isRequired,
 };
