@@ -27,4 +27,4 @@ dist-ssr
 backend/.env
 /vite.config.js
 /.env
-helpers/formhelper.jsx
+helpers/
