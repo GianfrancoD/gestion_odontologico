@@ -1,21 +1,20 @@
 import { useState } from "react";
-
 import { ServicesAll } from "../services/servicespost";
+//import { handleTarget } from "../helpers/formhelper";
+import useTarget from "../helpers/formhelper";
 
 export const Formulario = () => {
-  const [alluser, setAlluser] = useState([]);
-  const [formulario, setFormulario] = useState({
+  /**const [formulario, setFormulario] = useState({
     nombre: "",
     apellido: "",
-  });
+  });*/
   const [mensaje, setMensaje] = useState("");
   const [usuarioexiste, setUsuarioExiste] = useState(false);
+  const [target, setTarget] = useTarget({ nombre: "", apellido: "" });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formulario);
-    setFormulario({ nombre: "", apellido: "" });
-    setAlluser([...alluser, formulario]);
+    console.log(target);
 
     /**
      * Endpoint: va la direccion del endpoint del a base de datos
@@ -23,7 +22,7 @@ export const Formulario = () => {
      * Data: es la informacion del formulario que tengas guardado en algun array
      * Method: es la solicitud HTTP [GET, POST, PUT, DELETE]
      */
-    ServicesAll("create", undefined, formulario, "post")
+    ServicesAll("create", undefined, target, "post")
       .then((response) => {
         console.log(response.data);
         setMensaje("Usuario Creado con exito");
@@ -40,30 +39,27 @@ export const Formulario = () => {
         }
       });
   };
-
   return (
     <>
       <form action="" onSubmit={handleSubmit}>
         <label></label>
         <input
           type="text"
-          value={formulario.nombre}
+          value={target.nombre}
           pattern="[a-zA-Z]+"
           placeholder="nombre"
-          onChange={(e) => {
-            setFormulario({ ...formulario, nombre: e.target.value });
-          }}
+          onChange={setTarget}
+          name="nombre"
           required
         />
         <label></label>
         <input
           type="text"
-          value={formulario.apellido}
+          value={target.apellido}
           pattern="[a-zA-Z]+"
           placeholder="apellido"
-          onChange={(e) => {
-            setFormulario({ ...formulario, apellido: e.target.value });
-          }}
+          onChange={setTarget}
+          name="apellido"
           required
         />
         <button>Enviar</button>
