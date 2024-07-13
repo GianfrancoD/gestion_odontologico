@@ -41,14 +41,14 @@ def get_user():
         apellido = data.get('apellido')
         user = session.query(userClinic).filter_by(nombre=nombre, apellido=apellido).first()
         if user:
-            return jsonify({'message': 'El usuario ya existe'}), 400
+            return jsonify({'message': 'El usuario ya existe ❌'}), 400
         elif not (nombre and apellido) or not (nombre or apellido):
             return jsonify({'message': 'No se permite Formulario Vacios'}), 400
         else:
             get_user = userClinic(nombre,apellido)
             session.add(get_user)
             session.commit()
-            return jsonify(data)
+            return jsonify({'message': 'Usuario creado con existo ✅'}), 201
 
 if __name__ == '__init__':
     app.run(debug=True)

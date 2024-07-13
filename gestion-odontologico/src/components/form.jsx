@@ -1,47 +1,25 @@
-import { useState } from "react";
-import { ServicesAll } from "../services/servicespost";
-//import { handleTarget } from "../helpers/formhelper";
+import useServicesAll from "../services/servicespost";
 import useTarget from "../helpers/formhelper";
 
 export const Formulario = () => {
-  /**const [formulario, setFormulario] = useState({
-    nombre: "",
-    apellido: "",
-  });*/
-  const [mensaje, setMensaje] = useState("");
-  const [usuarioexiste, setUsuarioExiste] = useState(false);
   const [target, setTarget] = useTarget({ nombre: "", apellido: "" });
+  const { ServicesAll, mensaje, usuarioexiste } = useServicesAll();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(target);
 
     /**
-     * Endpoint: va la direccion del endpoint del a base de datos
-     * Id: es numerico se refiere a parametros usando metodos PUT o DELETE
-     * Data: es la informacion del formulario que tengas guardado en algun array
-     * Method: es la solicitud HTTP [GET, POST, PUT, DELETE]
+     * @param Endpoint: va la direccion del endpoint del a base de datos
+     * @param Id: es numerico se refiere a parametros usando metodos PUT o DELETE
+     * @param Data: es la informacion del formulario que tengas guardado en algun array
+     * @param Method: es la solicitud HTTP [GET, POST, PUT, DELETE]
      */
-    ServicesAll("create", undefined, target, "post")
-      .then((response) => {
-        console.log(response.data);
-        setMensaje("Usuario Creado con exito");
-        setUsuarioExiste(true);
-      })
-      .catch((error) => {
-        console.error(error);
-        if (error.response.data.message === "El usuario ya existe") {
-          setUsuarioExiste(true);
-          setMensaje("");
-        } else {
-          setUsuarioExiste(false);
-          setMensaje("Error al crear el usuario");
-        }
-      });
+    ServicesAll("create", undefined, target, "post");
   };
   return (
     <>
-      <form action="" onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <label></label>
         <input
           type="text"
@@ -67,7 +45,7 @@ export const Formulario = () => {
       {mensaje ? (
         <p style={{ color: "green" }}>{mensaje}</p>
       ) : usuarioexiste ? (
-        <p style={{ color: "red" }}>El usuario ya existe</p>
+        <p style={{ color: "red" }}>{usuarioexiste}</p>
       ) : (
         <p></p>
       )}
